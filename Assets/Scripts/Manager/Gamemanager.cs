@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     public int difficulty; // 0 : 이지, 1 : 노말, 2 : 하드
 
+    public float score;
+
     private void Awake()
     {
         if (instance == null)
@@ -17,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("GameDifficulty")) // HasKey "키값" 없으면 false, true
+        if (PlayerPrefs.HasKey(GameData.Gamedifficulty)) // HasKey "키값" 없으면 false, true
         {
             difficulty = PlayerPrefs.GetInt("GameDifficulty");
         }
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveGameDifficulty()
     {
-        PlayerPrefs.SetInt("GameDifficulty", difficulty); // GameDifficulty 이름으로. difficulty변수(정수) 저장.
+        PlayerPrefs.SetInt(GameData.Gamedifficulty, difficulty); // GameDifficulty 이름으로. difficulty변수(정수) 저장.
 
     }
 }
