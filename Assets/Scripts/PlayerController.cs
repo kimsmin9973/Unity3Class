@@ -30,10 +30,18 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private int facingDirection = 1;
 
+    [Header("HP")]
+    public int currentHP;
+    public int maxHP;
 
     [SerializeField] ParticleController particleController;
     public Animator animator;
     private bool isMove;
+
+    private void Awake()
+    {
+        currentHP = maxHP;
+    }
 
     void Start()
     {
