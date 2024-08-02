@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class Pattern2 : MonoBehaviour
 {
+    public GameObject warningSign;
     public GameObject enemyPrefab;
 
+    public Transform spawnPosition;
+
     // 몇 마리 소환할 것인가?
-    public int spawnCount = 5;
+    public int spawnCount = 1;
     // 몇 초를 주기로 생성할 것인가?
     public float spawnCycle = 1f;
 
-    private void Start()
-    {
-        //InvokeRepeating(nameof(CreateEnemyInstance), spawnCycle, 1);
-        StartCoroutine(SpawnEnemy());
-    }
-
-
     private void OnEnable()
     {
-        //InvokeRepeating(nameof(CreateEnemyInstance), spawnCycle, 1);
         StartCoroutine(SpawnEnemy());
     }
 
@@ -31,29 +26,24 @@ public class Pattern2 : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        // 패턴이 시작되기 전에 사운드를 추가할 수 있습니다.
-        // 전조 알림.
+        Vector3 spawnPos = new Vector3(-8.53f, 1.54f, 0);
+
+        GameObject warning = Instantiate(warningSign, spawnPos, Quaternion.identity);
+
         yield return new WaitForSeconds(1f);
+        Destroy(warning);
+        CreateEnemyInstance(1);
 
-        int repeatTime = 10;
-
-        for (int i = 0; i < repeatTime; i++)
-        {
-            CreateEnemyInstance(spawnCount);
-            yield return new WaitForSeconds(spawnCycle);
-        }
-
+        gameObject.SetActive(false);
 
     }
 
     private void CreateEnemyInstance(int count)
     {
-
+        Vector3 spawnPos = new Vector3(-8.53f, 1.54f, 0);
         for (int i = 0; i < count; i++)
         {
-            float randomValue = Random.Range(-16, 16);
-            Vector3 spawnPosition = new Vector3(randomValue, 9, 0);
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         }
     }
 

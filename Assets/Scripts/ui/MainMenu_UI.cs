@@ -8,11 +8,15 @@ using UnityEngine.SceneManagement;
 public class MainMenu_UI : MonoBehaviour
 {
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI bestTimeText;
+    public TextMeshProUGUI currentScoreText;
 
 
     private void Update()
     {
         levelText.text = GameManager.instance.ReturnCurrentDifficulty();
+        currentScoreText.text = GameManager.instance.score.ToString();
+        bestTimeText.text = "$최고점수: {PlayerPrefs.GetFloat(GameData.BestScore).ToString()}";
     }
 
     public void StartNewGame()

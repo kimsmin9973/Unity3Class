@@ -9,6 +9,18 @@ public class GameManager : MonoBehaviour
 
     public float score;
 
+    private void Update()
+    {
+        score += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (score > PlayerPrefs.GetFloat(GameData.BestScore)) ;
+            PlayerPrefs.SetFloat(GameData.BestScore, score);
+        }
+    }
+
+
     private void Awake()
     {
         if (instance == null)
@@ -21,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(GameData.Gamedifficulty)) // HasKey "키값" 없으면 false, true
         {
-            difficulty = PlayerPrefs.GetInt("GameDifficulty");
+            difficulty = PlayerPrefs.GetInt(GameData.Gamedifficulty);
         }
     }
 

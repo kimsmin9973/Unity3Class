@@ -32,7 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("HP")]
     public int currentHP;
-    public int maxHP;
+    public int maxHP = 5;
+
+  
 
     [SerializeField] ParticleController particleController;
     public Animator animator;

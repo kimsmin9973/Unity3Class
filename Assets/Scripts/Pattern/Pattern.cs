@@ -11,13 +11,6 @@ public class Pattern : MonoBehaviour
     // 몇 초를 주기로 생성할 것인가?
     public float spawnCycle = 1f;
 
-    private void Start()
-    {
-        //InvokeRepeating(nameof(CreateEnemyInstance), spawnCycle, 1);
-        StartCoroutine(SpawnEnemy());
-    }
-
-
     private void OnEnable()
     {
         //InvokeRepeating(nameof(CreateEnemyInstance), spawnCycle, 1);
@@ -26,7 +19,7 @@ public class Pattern : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(SpawnEnemy());
+        StopCoroutine(SpawnEnemy());    
     }
 
     IEnumerator SpawnEnemy()
@@ -41,7 +34,7 @@ public class Pattern : MonoBehaviour
         {
             CreateEnemyInstance(spawnCount);
             yield return new WaitForSeconds(spawnCycle);
-        }       
+        }
 
 
     }

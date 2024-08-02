@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
             // 체력이 <=0 같을 때 게임을 메인 메뉴로 이동할지, 게임을 종료할지 선택할 수 있는 UI 띄운다.
             // 플레이어 체력을 접근해서, 플레이어 체력과 비교
 
-            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+                    //player = collision.gameObject.GetComponent<PlayerController>();
 
             // 체력 감소 코드를 먼저 실행
             //player.currentHp = player.currentHp - 1;
