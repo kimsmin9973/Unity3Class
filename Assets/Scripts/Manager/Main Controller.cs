@@ -17,6 +17,26 @@ public class MainController : MonoBehaviour
     public TextMeshProUGUI BestScore;
     private float score;
 
+    [Header("Level")]
+    public TextMeshProUGUI Level;
+
+    [Header("CountDown")]
+    public TextMeshProUGUI startCountText;
+    public GameObject StartUIPanel;
+    public bool isGameStart;
+   
+    IEnumerator Countdown()
+    {
+        startCountText.text = "3";
+        yield return new WaitForSeconds(1f);
+        startCountText.text = "2";
+        yield return new WaitForSeconds(1f); startCountText.text = "1";
+        yield return new WaitForSeconds(1f); startCountText.text = "Start";
+        yield return new WaitForSeconds(0.5f);
+        StartUIPanel.SetActive(false);
+    }
+
+
     private void Update()
     {
         score = GameManager.instance.score;
@@ -36,12 +56,12 @@ public class MainController : MonoBehaviour
     {
         GameOverPanel.SetActive(true);   // 게임 오버시 게임 종료 UI 활성화
         // 현재 점수가 최고 점수보다 높을 때 갱신
-        //if (score > PlayerPrefs.GetFloat(GameData.BestScore))
+        if (score > PlayerPrefs.GetFloat(GameData.BestScore))
         //{
-        //    PlayerPrefs.SetFloat(GameData.BestScore, score);
-        //    BestScore.text = $"최고점수 : {GameManager.instance.score}";
+            PlayerPrefs.SetFloat(GameData.BestScore, score);
+            BestScore.text = $"최고점수 : {GameManager.instance.score}";
         //}
-        //else // 현재 점수가 최고 점수보다 낮을 때, 기존의 최고 점수를 불러온다.
+        //else  현재 점수가 최고 점수보다 낮을 때, 기존의 최고 점수를 불러온다.
         //{
         //    BestScore.text = $"최고점수 : {PlayerPrefs.GetFloat(GameData.BestScore)}";
         //}

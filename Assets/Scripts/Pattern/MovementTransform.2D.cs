@@ -2,49 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatternController : MonoBehaviour
+public class MovementTransform2D : MonoBehaviour
 {
-    public GameObject[] patterns;
+    public float moveSpeed;
+    public Vector3 moveDirection;
+    private float originSpeed;
 
-    // 시작할 패턴 번호
-    [Header("Currnet Pattern Info")]
-    public int patternIndex = 0;
-    public GameObject currentPattern;
-
-    void Start()
+    private void Awake()
     {
-        foreach (var pattern in patterns)
-        {
-            pattern.gameObject.SetActive(false);
-        }
-
-        ChangePattern();
+        originSpeed = moveSpeed;
     }
 
-    private void Update()
+    public float MoveSpeed(float modify)
     {
-        if(currentPattern.activeSelf == false)
-        {
-            ChangePattern();
-        }
+        moveSpeed += modify;
 
-        // ChangePattern
+        return moveSpeed;
     }
 
-    // 0 ~ 9  .. 순차적으로 실행되는 코드 구현.
-    // 0 ~ 9 랜덤으로 한개씩 실행되도록 하고 싶을 수 있다.
-
-    public void ChangePattern()
+    // Update is called once per frame
+    void Update()
     {
-        currentPattern = patterns[patternIndex]; // 패턴s 배열에 담겨있는 게임오브젝트로 패턴을 관리한다.
-        currentPattern.SetActive(true);
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+    }
 
-        patternIndex++;
-
-        if (patternIndex >= patterns.Length)
-        {
-            patternIndex = 0;
-        }
-
+    public void MoveTo(Vector3 direction)
+    {
+        moveDirection = direction;
     }
 }
