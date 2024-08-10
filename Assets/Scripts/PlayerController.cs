@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float moveInput;  // �÷��̾��� ���� �� ��ǲ ������ ����
 
     //public Transform startTransform; // ĳ���Ͱ� ������ ��ġ
-    public Rigidbody2D rigidbody2D;  // ����(��ü) ����� �����ϴ� ������Ʈ
+    public Rigidbody2D rigidbody2D;  // ����(��ü) �����?�����ϴ� ������Ʈ
 
     [Header("����")]
     public bool isGrounded;          // true : ĳ���Ͱ� ���� �� �� �ִ� ����, false : ���� ����
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    // 1 ������ ���� ȣ��ȴ�. - �ݺ������� ���� 
+    // 1 ������ ���� ȣ��ȴ�? - �ݺ������� ���� 
     void Update()
     {
         // �Լ� �̸� �տ� ���콺Ŀ���� �ΰ� Ctlr + R + R 
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// ������ �� �� ������ �ƴ��� üũ �ϴ��� ��� -> Collider Check
+    /// ������ �� �� ������ �ƴ��� üũ �ϴ��� ���?-> Collider Check
     /// </summary>
     private void CollisionCheck()
     {
@@ -154,11 +154,11 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, JumpForce);
-        // 점프 사운드 출력.
-        // SFX 배열에 등록된 효과음 출력 숫자 2는 Jump1에 해당함.
+        // ?�프 ?�운??출력.
+        // SFX 배열???�록???�과??출력 ?�자 2??Jump1???�당??
         if (AudioManager.instance == null)
         {
-            Debug.LogWarning($"{nameof(AudioManager)}에 instance가 없습니다");
+            Debug.LogWarning($"{nameof(AudioManager)}??instance가 ?�습?�다");
             return;
         }
         AudioManager.instance.PlaySFX(2);

@@ -1,18 +1,20 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pattern2 : MonoBehaviour
+public class Pattern4 : MonoBehaviour
 {
-    public GameObject warningSign;
-    public GameObject enemyPrefab;
+    public Transform startPos;  //원을 방사할 위치
+    public int bulletCount;            //탄막의 갯수
+    public float bulletSpeed;          //탄막의 속도
+    public GameObject bulletPrefab;    //탄막 프리팹
 
-    public Transform spawnPosition;
-
-    // 몇 마리 소환할 것인가?
-    public int spawnCount = 1;
-    // 몇 초를 주기로 생성할 것인가?
-    public float spawnCycle = 1f;
+    public int MaxBulletCount;         //패턴 종료를 파악하기 위한 변수
+    private void Awake()
+    {
+        MaxBulletCount = bulletCount;
+    }
 
     private void OnEnable()
     {
@@ -26,25 +28,36 @@ public class Pattern2 : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        Vector3 spawnPos = new Vector3(-8.53f, 1.54f, 0);
+        int count = 0;
 
-        GameObject warning = Instantiate(warningSign, spawnPos, Quaternion.identity);
+        yield return new WaitForSeconds(1f); // 패턴 대기 시간
 
-        yield return new WaitForSeconds(1f);
-        Destroy(warning);
-        CreateEnemyInstance(1);
-
+        while (count < MaxBulletCount)
+        {
+            CircleEmit();
+            count++;
+            yield return new WaitForSeconds(1f);
+        }
         gameObject.SetActive(false);
-
     }
 
-    private void CreateEnemyInstance(int count)
+    void CircleEmit()
     {
-        Vector3 spawnPos = new Vector3(-8.53f, 1.54f, 0);
-        for (int i = 0; i < count; i++)
+        float angle = 360 / (float)bulletCount;
+
+        for (int i = 0; i < bulletCount; i++)
         {
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab,
+                startPos.position, Quaternion.identity);
+
+            float bulletAngle = angle * i; //12도, 24도, 36도, ./...
+            float x = Mathf.Cos(bulletAngle * Mathf.PI / 180);
+            float y = Mathf.Sin(bulletAngle * Mathf.PI / 180);
+
+            //각도로 부터 원점에서 시야 각도의 Vector2 값을 구하는 공식
+
+            bullet.GetComponent<MovementTransform2D>().MoveSpeed(bulletSpeed);
+            bullet.GetComponent<MovementTransform2D>().MoveTo(new Vector2(x, y));
         }
     }
-
 }
